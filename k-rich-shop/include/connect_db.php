@@ -10,7 +10,7 @@ $db = 'db_shop';//ชื่อฐานข้อมูล
 
 //function สำหรับเชื่อมต่อฐานข้อมูล
 try {
-    $con = new PDO("mysql:host=".$host."; dbname=".$db."", $user, $pass,
+     $con = new PDO("mysql:host=".$host."; dbname=".$db."", $user, $pass,
 	array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
 	//กำหนดการเชื่อมต่อแบบ utf-8 (เวลาสร้างไฟล์ก็ใช้การเข้ารหัสอักขระ utf-8 ด้วยครับ)
 //ดักจับ ERROR แล้วเก็บไว้ใน $e
