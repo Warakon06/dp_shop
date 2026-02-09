@@ -1,20 +1,8 @@
-<<<<<<< HEAD
-FROM php:8.0-apache
-# ... (คำสั่งอื่นๆ ของคุณ) ...
+FROM php:8.2-apache
 
-# --- เพิ่มส่วนนี้เข้าไปครับ ---
-RUN docker-php-ext-install pdo pdo_mysql mysqli
-# -------------------------
+# ติดตั้ง Extension สำหรับต่อ MySQL
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 COPY . /var/www/html/
-=======
-FROM php:8.0-apache
-# ... (คำสั่งอื่นๆ ของคุณ) ...
-
-# --- เพิ่มส่วนนี้เข้าไปครับ ---
-RUN docker-php-ext-install pdo pdo_mysql mysqli
-# -------------------------
-
-COPY . /var/www/html/
->>>>>>> e835878686405c49fefa5f8179ed27c3e5c77225
+RUN a2enmod rewrite
 EXPOSE 80
