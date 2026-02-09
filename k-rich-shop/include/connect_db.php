@@ -1,29 +1,28 @@
 <?php
-//เริ่มใช้ session
-session_start(); 
+session_start();
 ob_start();
 
-$host = 'localhost';//ชื่อ Host ฐานข้อมูล
-$user = 'root';//ชื่อผู้ใช้งานฐานข้อมูล
-$pass = '';//รหัสผ่านเข้าฐานข้อมูล
-$db = 'db_shop';//ชื่อฐานข้อมูล
+// 1. ลองดึงค่าจาก Render (Environment Variable)
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$pass = getenv('DB_PASS');
+$db   = getenv('DB_NAME');
 
-//function สำหรับเชื่อมต่อฐานข้อมูล
-try {
-<<<<<<< HEAD
-     $con = new PDO("mysql:host=".$host."; dbname=".$db."", $user, $pass,
-	array(PDO::MYSQL_ATTR_INIT_COMMAND=>"SET NAMES utf8"));
-=======
-    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password, array(
-    PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"  // <--- ตัวปัญหา
-));
->>>>>>> e835878686405c49fefa5f8179ed27c3e5c77225
-	//กำหนดการเชื่อมต่อแบบ utf-8 (เวลาสร้างไฟล์ก็ใช้การเข้ารหัสอักขระ utf-8 ด้วยครับ)
-//ดักจับ ERROR แล้วเก็บไว้ใน $e
-} catch (PDOException $e){
-    echo $e->getMessage();# แสดงออกมาหน้าจอ
+// 2. ถ้าดึงค่าไม่ได้ (แปลว่ารันในเครื่องตัวเอง XAMPP) ให้ใช้ค่าเดิม
+if (!$host) {
+    $host = 'localhost';
+    $user = 'root';
+    $pass = '';
+    $db   = 'db_shop';
 }
 
-//Settimezone เป็นประเทศไทย (วันที่และเวลา)
+try {
+    // เชื่อมต่อฐานข้อมูล
+    $con = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
+    $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch(PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+
 date_default_timezone_set("Asia/Bangkok");
 ?>
